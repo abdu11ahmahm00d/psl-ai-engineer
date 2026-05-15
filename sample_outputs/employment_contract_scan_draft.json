@@ -1,0 +1,33 @@
+{
+  "title": "Employment Contract — Pearson Specter Litt LLP and Harvey Reginald Specter",
+  "parties": ["Pearson Specter Litt LLP", "Harvey Reginald Specter"],
+  "key_facts": [
+    "Employment contract dated March 15, 2024 [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Employee shall maintain strict client confidentiality for 5 years post-termination [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Annual retainer amount of $850,000 [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Agreement governed by laws of the State of New York [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Disputes resolved through binding arbitration [SOURCE: employment_contract_scan.pdf, Page 1]"
+  ],
+  "timeline": [
+    "March 15, 2024: Employment contract executed [SOURCE: employment_contract_scan.pdf, Page 1]"
+  ],
+  "obligations": [
+    "Maintain strict client confidentiality for 5 years post-termination [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Annual retainer payment of $850,000 [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Both parties acknowledge they have read and understood the terms [SOURCE: employment_contract_scan.pdf, Page 1]"
+  ],
+  "open_questions": [
+    "Specific start date of employment not explicitly stated in document"
+  ],
+  "evidence_map": {
+    "employment_contract_scan.pdf": {
+      "page_1": "Full document text covering contract terms, parties, confidentiality clause, retainer amount, governing law, and arbitration clause"
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-05-15T10:30:00",
+    "source_document": "employment_contract_scan.pdf",
+    "evidence_chunks_used": 1,
+    "edit_patterns_applied": 3
+  }
+}

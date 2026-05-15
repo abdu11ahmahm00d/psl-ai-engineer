@@ -1,0 +1,32 @@
+{
+  "title": "Settlement Agreement — Michael James Ross and Pearson Specter Litt LLP",
+  "parties": ["Michael James Ross", "Pearson Specter Litt LLP"],
+  "key_facts": [
+    "Settlement agreement dated July 22, 2024 [SOURCE: settlement_agreement.pdf, Page 1]",
+    "Settlement amount of $450,000 to be paid in three equal installments [SOURCE: settlement_agreement.pdf, Page 1]",
+    "Agreement governed by laws of the State of New York [SOURCE: settlement_agreement.pdf, Page 1]",
+    "Disputes resolved through binding arbitration [SOURCE: settlement_agreement.pdf, Page 1]"
+  ],
+  "timeline": [
+    "July 22, 2024: Settlement agreement executed [SOURCE: settlement_agreement.pdf, Page 1]"
+  ],
+  "obligations": [
+    "Payment of $450,000 in three equal installments of $150,000 each [SOURCE: settlement_agreement.pdf, Page 1]",
+    "Both parties acknowledge they have read and understood the terms [SOURCE: settlement_agreement.pdf, Page 1]"
+  ],
+  "open_questions": [
+    "Payment schedule dates for the three installments not specified",
+    "Nature of the underlying dispute leading to settlement"
+  ],
+  "evidence_map": {
+    "settlement_agreement.pdf": {
+      "page_1": "Full settlement text covering parties, amount, installment structure, governing law, and arbitration clause"
+    }
+  },
+  "_meta": {
+    "generated_at": "2026-05-15T10:40:00",
+    "source_document": "settlement_agreement.pdf",
+    "evidence_chunks_used": 1,
+    "edit_patterns_applied": 3
+  }
+}

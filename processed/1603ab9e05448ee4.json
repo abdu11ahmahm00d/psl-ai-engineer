@@ -1,0 +1,16 @@
+{
+  "source_file": "sample_inputs\\employment_contract_scan.pdf",
+  "file_hash": "1603ab9e05448ee4",
+  "pages": [
+    {
+      "page_num": 1,
+      "raw_text": "EMPLOYMENT CONTRACT\nDate: March 15, 2024\nParties: Pearson Specter Litt LLP and Harvey Reginald Specter\nThis Employment Contract is entered into by and between Pearson Specter Litt LLP and Harvey Reginald Spec\nWHEREAS, the parties wish to establish the terms and conditions set forth herein;\nNOW, THEREFORE, in consideration of the mutual covenants contained herein, the parties agree as follows:\n1. The Employee shall maintain strict client confidentiality for a period of 5 years post-termination.\n2. The total amount involved is $850,000 annual retainer.\n3. This agreement shall be governed by the laws of the State of New York.\n4. Any disputes arising from this agreement shall be resolved through binding arbitration.\n5. Both parties acknowledge that they have read and understood the terms herein.\nIN WITNESS WHEREOF, the parties have executed this agreement as of the date first written above.\n_________________________          _________________________\nPearson Specter Litt LLP          Harvey Reginald Specter\nAuthorized Signature              Authorized Signature",
+      "confidence": 1.0,
+      "source_file": "sample_inputs\\employment_contract_scan.pdf",
+      "method_used": "pymupdf_native"
+    }
+  ],
+  "total_pages": 1,
+  "extraction_method": "hybrid_tiered",
+  "warnings": []
+}

@@ -1,0 +1,16 @@
+{
+  "source_file": "sample_inputs\\settlement_agreement.pdf",
+  "file_hash": "249c5db853c25342",
+  "pages": [
+    {
+      "page_num": 1,
+      "raw_text": "SETTLEMENT AGREEMENT\nDate: July 22, 2024\nParties: Michael James Ross and Pearson Specter Litt LLP\nThis Settlement Agreement is entered into by and between Michael James Ross and Pearson Specter Litt LLP.\nWHEREAS, the parties wish to establish the terms and conditions set forth herein;\nNOW, THEREFORE, in consideration of the mutual covenants contained herein, the parties agree as follows:\n1. Settlement amount of $450,000 to be paid in three equal installments.\n2. The total amount involved is $450,000.\n3. This agreement shall be governed by the laws of the State of New York.\n4. Any disputes arising from this agreement shall be resolved through binding arbitration.\n5. Both parties acknowledge that they have read and understood the terms herein.\nIN WITNESS WHEREOF, the parties have executed this agreement as of the date first written above.\n_________________________          _________________________\nMichael James Ross          Pearson Specter Litt LLP\nAuthorized Signature              Authorized Signature",
+      "confidence": 1.0,
+      "source_file": "sample_inputs\\settlement_agreement.pdf",
+      "method_used": "pymupdf_native"
+    }
+  ],
+  "total_pages": 1,
+  "extraction_method": "hybrid_tiered",
+  "warnings": []
+}

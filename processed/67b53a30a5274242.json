@@ -1,0 +1,16 @@
+{
+  "source_file": "sample_inputs\\cease_desist_notice.pdf",
+  "file_hash": "67b53a30a5274242",
+  "pages": [
+    {
+      "page_num": 1,
+      "raw_text": "CEASE AND DESIST NOTICE\nDate: January 3, 2025\nParties: Specter Industries and Zane Global Corp\nThis Cease and Desist Notice is entered into by and between Specter Industries and Zane Global Corp.\nWHEREAS, the parties wish to establish the terms and conditions set forth herein;\nNOW, THEREFORE, in consideration of the mutual covenants contained herein, the parties agree as follows:\n1. You are hereby ordered to cease all use of the trademark 'Specter' within 30 days.\n2. The total amount involved is $2,000,000 in damages claimed.\n3. This agreement shall be governed by the laws of the State of New York.\n4. Any disputes arising from this agreement shall be resolved through binding arbitration.\n5. Both parties acknowledge that they have read and understood the terms herein.\nIN WITNESS WHEREOF, the parties have executed this agreement as of the date first written above.\n_________________________          _________________________\nSpecter Industries          Zane Global Corp\nAuthorized Signature              Authorized Signature",
+      "confidence": 1.0,
+      "source_file": "sample_inputs\\cease_desist_notice.pdf",
+      "method_used": "pymupdf_native"
+    }
+  ],
+  "total_pages": 1,
+  "extraction_method": "hybrid_tiered",
+  "warnings": []
+}
