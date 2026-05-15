@@ -6,7 +6,7 @@ import re
 import json
 from pathlib import Path
 from datetime import datetime
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -17,7 +17,6 @@ def _extract_json(text: str) -> str:
     text = re.sub(r'^```(?:json)?\s*', '', text)
     text = re.sub(r'\s*```$', '', text)
     text = text.strip()
-    # Find the last complete JSON object (handles chain-of-thought before JSON)
     candidates = []
     for match in re.finditer(r'\{', text):
         start = match.start()
@@ -44,7 +43,6 @@ def _extract_json(text: str) -> str:
                 if brace_count == 0:
                     candidates.append(text[start:i+1])
                     break
-    # Return the longest valid JSON candidate (most likely the intended output)
     if candidates:
         return max(candidates, key=len)
     return text
@@ -68,8 +66,8 @@ class DraftGenerator:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemma-4-26b-a4b-it")
+        self.client = genai.Client(api_key=api_key)
+        self.model = "gemma-4-26b-a4b-it"
 
     def generate(
         self,
@@ -95,7 +93,10 @@ Document name: {document_name}
 
 Return ONLY valid JSON. No markdown fences."""
 
-        response = self.model.generate_content(user_prompt)
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=user_prompt,
+        )
         raw = _extract_json(response.text)
         try:
             draft = json.loads(raw)

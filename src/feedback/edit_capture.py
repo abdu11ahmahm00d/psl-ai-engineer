@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Optional
 from datetime import datetime
 from pydantic import BaseModel
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -69,8 +69,8 @@ class EditPatternExtractor:
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemma-4-26b-a4b-it")
+        self.client = genai.Client(api_key=api_key)
+        self.model = "gemma-4-26b-a4b-it"
 
     def extract_pattern(self, edit: OperatorEdit) -> Optional[dict]:
         prompt = f"""An operator edited a legal draft. Analyze the edit and extract a reusable drafting pattern.
@@ -96,7 +96,10 @@ Only return a pattern if the edit reveals a clear, generalizable preference.
 If the edit is document-specific and not generalizable, return {{"pattern_type": "skip"}}.
 Return ONLY valid JSON."""
 
-        response = self.model.generate_content(prompt)
+        response = self.client.models.generate_content(
+            model=self.model,
+            contents=prompt,
+        )
         raw = _extract_json(response.text)
         try:
             result = json.loads(raw)

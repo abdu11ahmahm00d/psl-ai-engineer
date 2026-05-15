@@ -10,7 +10,9 @@
   "case_number": null,
   "jurisdiction": "State of New York",
   "key_facts": [
-    "Disputes arising from this agreement shall be resolved through binding arbitration."
+    "The total amount involved is $850,000 annual retainer.",
+    "This agreement shall be governed by the laws of the State of New York.",
+    "Any disputes arising from this agreement shall be resolved through binding arbitration."
   ],
   "obligations": [
     "The Employee shall maintain strict client confidentiality for a period of 5 years post-termination."
@@ -26,6 +28,6 @@
     "Harvey Reginald Specter"
   ],
   "confidence_notes": [
-    "The name 'Harvey Reginald Spec' in the second sentence appears truncated."
+    "The name 'Harvey Reginald Spec' in the introductory paragraph is truncated/incomplete."
   ]
 }

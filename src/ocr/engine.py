@@ -2,20 +2,23 @@
 OCR Engine — Hybrid Tiered Intelligence
 Tiers:
 1. PyMuPDF Native (Digital PDFs)
-2. EasyOCR (Local GPU-accelerated for standard scans)
-3. Gemini 2.0 Flash (Cognitive Multimodal for noisy/complex/handwritten docs)
+2. EasyOCR (Local CPU-accelerated for standard scans)
+3. Gemma-4-26b-a4b-it (Cognitive Multimodal for noisy/complex/handwritten docs)
 """
-import os, json, hashlib
+import os
+import json
+import hashlib
 from pathlib import Path
 from PIL import Image
 import fitz  # PyMuPDF
 import easyocr
-import google.generativeai as genai
+from google import genai
 from dataclasses import dataclass, asdict
 from typing import Optional
 from dotenv import load_dotenv
 
 load_dotenv()
+
 
 @dataclass
 class PageResult:
@@ -23,7 +26,8 @@ class PageResult:
     raw_text: str
     confidence: Optional[float]
     source_file: str
-    method_used: str  # "pymupdf_native" | "easyocr" | "gemini_multimodal"
+    method_used: str  # "pymupdf_native" | "easyocr" | "gemma_multimodal"
+
 
 @dataclass
 class DocumentResult:
@@ -37,34 +41,36 @@ class DocumentResult:
     def full_text(self) -> str:
         return "\n\n".join(p.raw_text for p in self.pages)
 
+
 class OCREngine:
     def __init__(self, backend: str = "auto"):
         """
-        backend: "auto" | "easyocr" | "gemini"
-        "auto" uses the tiered approach: Native -> EasyOCR -> Gemini
+        backend: "auto" | "easyocr" | "gemma"
+        "auto" uses the tiered approach: Native -> EasyOCR -> Gemma
         """
         self.backend = backend
         self.reader = None
         self._setup_backends()
 
     def _setup_backends(self):
-        # Setup EasyOCR (CPU mode since we use CPU torch)
+        # Setup EasyOCR (CPU mode)
         if self.backend in ["auto", "easyocr"]:
             try:
                 self.reader = easyocr.Reader(['en'], gpu=False, verbose=False)
             except Exception as e:
-                print(f"WARNING: EasyOCR init failed: {e}. Falling back to Gemini.")
+                print(f"WARNING: EasyOCR init failed: {e}. Falling back to Gemma.")
                 self.reader = None
-        
-        # Setup Gemini (Cloud Multimodal)
+
+        # Setup Gemma (Cloud Multimodal)
         api_key = os.environ.get("GEMINI_API_KEY")
         if api_key:
-            genai.configure(api_key=api_key)
-            self.vision_model = genai.GenerativeModel('gemma-4-26b-a4b-it')
+            self.vision_client = genai.Client(api_key=api_key)
+            self.vision_model = "gemma-4-26b-a4b-it"
         else:
+            self.vision_client = None
             self.vision_model = None
-            if self.backend == "gemini":
-                print("WARNING: GEMINI_API_KEY not found in environment. Gemini tier disabled.")
+            if self.backend == "gemma":
+                print("WARNING: GEMINI_API_KEY not found in environment. Gemma tier disabled.")
 
     def process_file(self, filepath: str | Path, output_dir: str | Path) -> DocumentResult:
         """Main entry point. Accepts PDF or image. Writes JSON to output_dir."""
@@ -94,7 +100,7 @@ class OCREngine:
         doc = fitz.open(str(path))
         pages = []
         warnings = []
-        
+
         for i, page in enumerate(doc):
             # TIER 1: Native PDF Text
             native_text = page.get_text().strip()
@@ -106,14 +112,14 @@ class OCREngine:
             pix = page.get_pixmap(dpi=300)
             img_path = Path(os.environ.get("PROCESSED_DIR", "D:/psl-ai-engineer/processed")) / f"_page_{i+1}_{self._hash_file(path)}.png"
             pix.save(str(img_path))
-            
+
             text, method = self._ocr_with_fallback(str(img_path))
-            
+
             if not text.strip():
                 warnings.append(f"Page {i+1}: OCR returned empty")
-            
+
             pages.append(PageResult(i+1, text, None, str(path), method))
-            
+
         return DocumentResult(str(path), "", pages, len(pages), "hybrid_tiered", warnings)
 
     def _process_image(self, path: Path) -> DocumentResult:
@@ -121,35 +127,38 @@ class OCREngine:
         return DocumentResult(str(path), "", [PageResult(1, text, None, str(path), method)], 1, "hybrid_tiered", [])
 
     def _ocr_with_fallback(self, img_path: str) -> tuple[str, str]:
-        """Tiered fallback logic: EasyOCR -> Gemini"""
-        # If explicitly set to gemini, skip EasyOCR
-        if self.backend == "gemini":
-            return self._ocr_multimodal(img_path), "gemini_multimodal"
+        """Tiered fallback logic: EasyOCR -> Gemma"""
+        # If explicitly set to gemma, skip EasyOCR
+        if self.backend == "gemma":
+            return self._ocr_multimodal(img_path), "gemma_multimodal"
 
         # TIER 2: EasyOCR
         if self.reader:
             results = self.reader.readtext(img_path, detail=0)
             text = "\n".join(results)
-            
+
             # Heuristic: If EasyOCR finds very little text on a document, it's likely a complex scan/handwriting
             if len(text.strip()) > 50:
                 return text, "easyocr"
 
-        # TIER 3: Gemini Multimodal (Cognitive Fallback)
-        if self.vision_model:
-            return self._ocr_multimodal(img_path), "gemini_multimodal"
+        # TIER 3: Gemma Multimodal (Cognitive Fallback)
+        if self.vision_client:
+            return self._ocr_multimodal(img_path), "gemma_multimodal"
 
         return "", "failed"
 
     def _ocr_multimodal(self, img_path: str) -> str:
-        """Uses Gemini 2.0 Flash to perform high-accuracy visual OCR."""
+        """Uses Gemma-4-26b-a4b-it to perform high-accuracy visual OCR."""
         try:
             img = Image.open(img_path)
             prompt = "Extract all text from this document image exactly as it appears. Maintain layout where possible. Output only the raw extracted text."
-            response = self.vision_model.generate_content([prompt, img])
+            response = self.vision_client.models.generate_content(
+                model=self.vision_model,
+                contents=[prompt, img],
+            )
             return response.text
         except Exception as e:
-            print(f"Gemini OCR Error: {e}")
+            print(f"Gemma OCR Error: {e}")
             return ""
 
     @staticmethod

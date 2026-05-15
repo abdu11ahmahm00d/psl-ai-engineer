@@ -1,0 +1,26 @@
+{
+  "document_name": "employment_contract_scan.pdf",
+  "document_type": "EMPLOYMENT CONTRACT",
+  "parties": [
+    "Pearson Specter Litt LLP [SOURCE: employment_contract_scan.pdf, Page 1]",
+    "Harvey Reginald Specter [SOURCE: employment_contract_scan.pdf, Page 1]"
+  ],
+  "jurisdiction": "State of New York [SOURCE: employment_contract_scan.pdf, Page 1]",
+  "summary": "An employment agreement established between Pearson Specter Litt LLP and Harvey Reginald Specter, outlining compensation via an annual retainer, confidentiality requirements, and the governing legal framework.",
+  "key_facts": [
+    "The employee is to receive a total annual retainer of $850,000 [SOURCE: employment_contract_scan.pdf, Page 1].",
+    "The employee is obligated to maintain strict client confidentiality for a period of 5 years following the termination of the contract [SOURCE: employment_contract_scan.pdf, Page 1].",
+    "The agreement is subject to the laws of the State of New York [SOURCE: employment_contract_scan.pdf, Page 1].",
+    "Any disputes arising from the terms of this agreement must be resolved through binding arbitration [SOURCE: employment_contract_scan.pdf, Page 1]."
+  ],
+  "timeline": [
+    "\u2022 March 15, 2024: The employment contract is entered into by the parties [SOURCE: employment_contract_scan.pdf, Page 1].",
+    "\u2022 5 years post-termination: The expiration of the employee's confidentiality obligation [SOURCE: employment_contract_scan.pdf, Page 1]."
+  ],
+  "_meta": {
+    "generated_at": "2026-05-15T17:59:17.696825",
+    "source_document": "employment_contract_scan.pdf",
+    "evidence_chunks_used": 10,
+    "edit_patterns_applied": 3
+  }
+}
