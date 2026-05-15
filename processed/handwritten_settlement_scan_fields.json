@@ -1,0 +1,42 @@
+{
+  "document_type": "SETTLEMENT AGREEMENT",
+  "parties": [
+    "John Michael Davidson",
+    "Williams & Associates LLC"
+  ],
+  "dates": [
+    "March 15, 2024",
+    "January 10, 2023",
+    "April 1, 2024",
+    "March 15, 2024",
+    "MAR 18 202"
+  ],
+  "case_number": null,
+  "jurisdiction": "State of California",
+  "key_facts": [
+    "Disputes arise from the contract dated January 10, 2023"
+  ],
+  "obligations": [
+    "A shall pay Party B the sum of $125,000",
+    "Payment shall be made in two equal installments",
+    "Upon full payment, Party B shall release all claims against Party A related to the aforementioned contract",
+    "disputes shall be resolved through mediation before either party may pursue litigation"
+  ],
+  "amounts": [
+    "$125,000",
+    "One Hundred Twenty-Five Thousand Dollars",
+    "$62,500"
+  ],
+  "deadlines": [
+    "April 1, 2024",
+    "[ILLEGIBLE] 1, 2024"
+  ],
+  "signatures": [
+    "John M Davidson",
+    "Sarah Williams"
+  ],
+  "confidence_notes": [
+    "Second installment date is partially missing/illegible: 'by 1,2024'",
+    "Received stamp date is partially missing/illegible: 'MAR 18 202'"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "case_fact_summary": {
+    "document_type": "SETTLEMENT AGREEMENT [SOURCE: handwritten_settlement_scan.png, Page 1]",
+    "jurisdiction": "State of California [SOURCE: handwritten_settlement_scan.png, Page 1]",
+    "parties": [
+      "John Michael Davidson (Party A) [SOURCE: handwritten_settlement_scan.png, Page 1]",
+      "Williams & Associates LLC (Party B) [SOURCE: handwritten_settlement_scan.png, Page 1]"
+    ],
+    "summary": "This settlement agreement was executed on March 15, 2024, to resolve all outstanding disputes arising from a contract dated January 10, 2023, between John Michael Davidson and Williams & Associates LLC [SOURCE: handwritten_settlement_scan.png, Page 1]. Under the terms of the agreement, Party A shall pay Party B a total sum of $125,000, divided into two equal installments of $62,500 [SOURCE: handwritten_settlement_scan.png, Page 1]. The first installment is due by April 1, 2024, while the deadline for the second installment is partially illegible, recorded as 'by 1,2024' [SOURCE: handwritten_settlement_scan.png, Page 1]. Upon completion of the full payment, Party B will release all claims against Party A related to the original January 10, 2023 contract [SOURCE: handwritten_settlement_scan.png, Page 1]. The agreement is governed by California law and stipulates that any disputes must be resolved through mediation before either party may pursue litigation [SOURCE: handwritten_settlement_scan.png, Page 1].",
+    "timeline": [
+      "January 10, 2023: Date of the original contract [SOURCE: handwritten_settlement_scan.png, Page 1]",
+      "March 15, 2024: Date the settlement agreement was executed [SOURCE: handwritten_settlement_scan.png, Page 1]",
+      "March 18, 202[X]: Date the document was received (partially illegible) [SOURCE: handwritten_settlement_scan.png, Page 1]",
+      "April 1, 2024: Deadline for the first installment of $62,500 [SOURCE: handwritten_settlement_scan.png, Page 1]",
+      "[ILLEGIBLE] 1, 2024: Deadline for the second installment of $62,500 [SOURCE: handwritten_settlement_scan.png, Page 1]"
+    ]
+  },
+  "_meta": {
+    "generated_at": "2026-05-15T17:42:18.094756",
+    "source_document": "handwritten_settlement_scan.png",
+    "evidence_chunks_used": 8,
+    "edit_patterns_applied": 3
+  }
+}

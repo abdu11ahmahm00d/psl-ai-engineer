@@ -1,0 +1,16 @@
+{
+  "source_file": "docs\\handwritten_settlement_scan.png",
+  "file_hash": "89f20aacdcc9e681",
+  "pages": [
+    {
+      "page_num": 1,
+      "raw_text": "SETTLEMENT AGREEMENT\nThis agreement is made on the 15th\nof March, 2024\nbetween the\nfollowing parties:\nParty A: John Michael Davidson\nParty B: Williams & Associates LLC\nWHEREAS,the parties wish to resolve all outstanding\ndisputes arising from the contract dated January 10,2023;\nNOW THEREFORE, in consideration of the mutual covenants\ncontained herein, the parties agree as follows:\nA shall pay Party B the sum of $125,000\n(One Hundred Twenty-Five Thousand Dollars)\n2. Payment shall be made in two equal installments:\nFirst installment: $62,500 by April 1,2024\nSecond installment: $62,500 by\n1,2024\n3.\nfull payment, Party B shall release all claims\nParty A related to the aforementioned contract.\n4. This agreement shall be governed by the laws of\nthe State of California:\n5.\ndisputes shall be resolved through mediation\nbefore either party may pursue litigation\nIN WITNESS WHEREOF , the parties have executed this\nagreement aS of the date first written above_\nJohn M Davidson\nSarah Williams\nAuthorized Signature\nAuthorized Signature\nDate: March 15,2024\nDate: March 15,2024\nRECEIVED\nMAR 18 202\nday\nParty\nJuly\nUpon\nagainst\nAny",
+      "confidence": null,
+      "source_file": "docs\\handwritten_settlement_scan.png",
+      "method_used": "easyocr"
+    }
+  ],
+  "total_pages": 1,
+  "extraction_method": "hybrid_tiered",
+  "warnings": []
+}
