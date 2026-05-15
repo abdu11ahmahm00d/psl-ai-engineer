@@ -2,6 +2,7 @@
 Operator Edit Capture & Learning Loop — Extracts reusable patterns from edits.
 """
 import os
+import re
 import json
 import uuid
 from pathlib import Path
@@ -12,6 +13,42 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
+def _extract_json(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r'^```(?:json)?\s*', '', text)
+    text = re.sub(r'\s*```$', '', text)
+    text = text.strip()
+    candidates = []
+    for match in re.finditer(r'\{', text):
+        start = match.start()
+        brace_count = 0
+        in_string = False
+        escape_next = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\':
+                escape_next = True
+                continue
+            if ch == '"' and not escape_next:
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == '{':
+                brace_count += 1
+            elif ch == '}':
+                brace_count -= 1
+                if brace_count == 0:
+                    candidates.append(text[start:i+1])
+                    break
+    if candidates:
+        return max(candidates, key=len)
+    return text
 
 
 class OperatorEdit(BaseModel):
@@ -33,7 +70,7 @@ class EditPatternExtractor:
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        self.model = genai.GenerativeModel("gemma-4-26b-a4b-it")
 
     def extract_pattern(self, edit: OperatorEdit) -> Optional[dict]:
         prompt = f"""An operator edited a legal draft. Analyze the edit and extract a reusable drafting pattern.
@@ -60,8 +97,7 @@ If the edit is document-specific and not generalizable, return {{"pattern_type":
 Return ONLY valid JSON."""
 
         response = self.model.generate_content(prompt)
-        raw = response.text.strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        raw = _extract_json(response.text)
         try:
             result = json.loads(raw)
             if result.get("pattern_type") == "skip":

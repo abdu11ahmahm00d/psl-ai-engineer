@@ -1,0 +1,29 @@
+{
+  "document_type": "settlement agreement",
+  "parties": [
+    "Michael James Ross",
+    "Pearson Specter Litt LLP"
+  ],
+  "dates": [
+    "July 22, 2024"
+  ],
+  "case_number": null,
+  "jurisdiction": "State of New York",
+  "key_facts": [
+    "The parties wish to establish the terms and conditions set forth herein.",
+    "Any disputes arising from this agreement shall be resolved through binding arbitration.",
+    "Both parties acknowledge that they have read and understood the terms herein."
+  ],
+  "obligations": [
+    "Settlement amount of $450,000 to be paid in three equal installments."
+  ],
+  "amounts": [
+    "$450,000"
+  ],
+  "deadlines": [],
+  "signatures": [
+    "Michael James Ross",
+    "Pearson Specter Litt LLP"
+  ],
+  "confidence_notes": []
+}

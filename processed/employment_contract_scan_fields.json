@@ -1,0 +1,31 @@
+{
+  "document_type": "EMPLOYMENT CONTRACT",
+  "parties": [
+    "Pearson Specter Litt LLP",
+    "Harvey Reginald Specter"
+  ],
+  "dates": [
+    "March 15, 2024"
+  ],
+  "case_number": null,
+  "jurisdiction": "State of New York",
+  "key_facts": [
+    "Disputes arising from this agreement shall be resolved through binding arbitration."
+  ],
+  "obligations": [
+    "The Employee shall maintain strict client confidentiality for a period of 5 years post-termination."
+  ],
+  "amounts": [
+    "$850,000"
+  ],
+  "deadlines": [
+    "5 years post-termination"
+  ],
+  "signatures": [
+    "Pearson Specter Litt LLP",
+    "Harvey Reginald Specter"
+  ],
+  "confidence_notes": [
+    "The name 'Harvey Reginald Spec' in the second sentence appears truncated."
+  ]
+}

@@ -2,6 +2,7 @@
 Draft Generation — Gemini-powered grounded case fact summary generator.
 """
 import os
+import re
 import json
 from pathlib import Path
 from datetime import datetime
@@ -9,6 +10,45 @@ import google.generativeai as genai
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
+def _extract_json(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r'^```(?:json)?\s*', '', text)
+    text = re.sub(r'\s*```$', '', text)
+    text = text.strip()
+    # Find the last complete JSON object (handles chain-of-thought before JSON)
+    candidates = []
+    for match in re.finditer(r'\{', text):
+        start = match.start()
+        brace_count = 0
+        in_string = False
+        escape_next = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\':
+                escape_next = True
+                continue
+            if ch == '"' and not escape_next:
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == '{':
+                brace_count += 1
+            elif ch == '}':
+                brace_count -= 1
+                if brace_count == 0:
+                    candidates.append(text[start:i+1])
+                    break
+    # Return the longest valid JSON candidate (most likely the intended output)
+    if candidates:
+        return max(candidates, key=len)
+    return text
+
 
 DRAFT_SYSTEM_PROMPT = """You are a senior legal analyst at Pearson Specter Litt preparing internal case fact summaries.
 
@@ -29,7 +69,7 @@ class DraftGenerator:
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        self.model = genai.GenerativeModel("gemma-4-26b-a4b-it")
 
     def generate(
         self,
@@ -56,12 +96,11 @@ Document name: {document_name}
 Return ONLY valid JSON. No markdown fences."""
 
         response = self.model.generate_content(user_prompt)
-        raw = response.text.strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        raw = _extract_json(response.text)
         try:
             draft = json.loads(raw)
         except json.JSONDecodeError:
-            draft = {"raw_text": raw, "parse_error": True}
+            draft = {"raw_text": response.text, "parse_error": True}
 
         draft["_meta"] = {
             "generated_at": datetime.utcnow().isoformat(),

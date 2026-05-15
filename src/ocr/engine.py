@@ -60,7 +60,7 @@ class OCREngine:
         api_key = os.environ.get("GEMINI_API_KEY")
         if api_key:
             genai.configure(api_key=api_key)
-            self.vision_model = genai.GenerativeModel('gemini-2.0-flash')
+            self.vision_model = genai.GenerativeModel('gemma-4-26b-a4b-it')
         else:
             self.vision_model = None
             if self.backend == "gemini":

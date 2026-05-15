@@ -1,0 +1,30 @@
+{
+  "document_type": "Cease and Desist Notice",
+  "parties": [
+    "Specter Industries",
+    "Zane Global Corp"
+  ],
+  "dates": [
+    "January 3, 2025"
+  ],
+  "case_number": null,
+  "jurisdiction": "State of New York",
+  "key_facts": [
+    "$2,000,000 in damages are claimed.",
+    "Disputes arising from this agreement shall be resolved through binding arbitration."
+  ],
+  "obligations": [
+    "Cease all use of the trademark 'Specter'"
+  ],
+  "amounts": [
+    "$2,000,000"
+  ],
+  "deadlines": [
+    "within 30 days"
+  ],
+  "signatures": [
+    "Specter Industries Authorized Signature",
+    "Zane Global Corp Authorized Signature"
+  ],
+  "confidence_notes": []
+}

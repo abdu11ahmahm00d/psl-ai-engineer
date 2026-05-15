@@ -3,6 +3,7 @@ Structured Field Extraction — Gemini-powered legal document analyzer.
 Extracts parties, dates, case numbers, key facts, obligations, etc.
 """
 import os
+import re
 import json
 from pathlib import Path
 from typing import Optional, List
@@ -27,13 +28,49 @@ class LegalDocumentFields(BaseModel):
     confidence_notes: List[str] = Field(default_factory=list, description="Uncertain or illegible fields")
 
 
+def _extract_json(text: str) -> str:
+    text = text.strip()
+    text = re.sub(r'^```(?:json)?\s*', '', text)
+    text = re.sub(r'\s*```$', '', text)
+    text = text.strip()
+    candidates = []
+    for match in re.finditer(r'\{', text):
+        start = match.start()
+        brace_count = 0
+        in_string = False
+        escape_next = False
+        for i in range(start, len(text)):
+            ch = text[i]
+            if escape_next:
+                escape_next = False
+                continue
+            if ch == '\\':
+                escape_next = True
+                continue
+            if ch == '"' and not escape_next:
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == '{':
+                brace_count += 1
+            elif ch == '}':
+                brace_count -= 1
+                if brace_count == 0:
+                    candidates.append(text[start:i+1])
+                    break
+    if candidates:
+        return max(candidates, key=len)
+    return text
+
+
 class StructuredExtractor:
     def __init__(self):
         api_key = os.environ.get("GEMINI_API_KEY")
         if not api_key:
             raise ValueError("GEMINI_API_KEY not found in environment")
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel("gemini-2.0-flash")
+        self.model = genai.GenerativeModel("gemma-4-26b-a4b-it")
 
     def extract(self, document_text: str, source_file: str) -> LegalDocumentFields:
         schema_json = json.dumps(LegalDocumentFields.model_json_schema(), indent=2)
@@ -55,8 +92,7 @@ DOCUMENT TEXT:
 {document_text[:12000]}
 """
         response = self.model.generate_content(prompt)
-        raw = response.text.strip()
-        raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+        raw = _extract_json(response.text)
 
         return LegalDocumentFields(**json.loads(raw))
 
